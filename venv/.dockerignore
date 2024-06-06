@@ -1,0 +1,48 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual Env
+.venv
+venv
+env
+env.bak
+
+.git
+.gitignore
+
+# Sphinx
+_build
+
+# PyCharm
+.idea
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+pip-log.txt
+pip-delete-this-directory.txt
+
+.tox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+htmlcov/
+.cache
+.pytest_cache
+.hypothesis/
+.mypy_cache
+.pytype/
+__pycache__/
+build/
+dist/
+*.egg-info/
+.install
+.coverage
+.coverage.*
+.cache
+.pytest_cache
+.mypy_cache
