@@ -5,7 +5,6 @@ npm install quasar @quasar/extras
 npm run dev
 
 # backend
-### cmd打开Astroinformatics
 cd ./venv/Scripts  
 ### 激活虚拟环境
 activate  
