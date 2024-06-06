@@ -6,11 +6,11 @@ npm run dev
 
 # backend
 ### cmd打开Astroinformatics
-cd ./venv/Scripts
+cd ./venv/Scripts  
 ### 激活虚拟环境
-activate
-cd ..
-cd ./astronomy/app
+activate  
+cd ..  
+cd ./astronomy/app  
 ### 使用python3.9的python.exe运行主程序
 python39 main.py
 
