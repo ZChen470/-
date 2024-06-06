@@ -1,3 +1,5 @@
+# 雁栖湖春季学期 天文信息学大作业 基于神经网络的星系分类Web应用
+功能描述：
 # frontend
 
 npm create vue@latest  
