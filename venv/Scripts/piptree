@@ -1,6 +1,0 @@
-#!D:\Program Files (x86)\python\VScode\Astroinformatics\venv\Scripts\python39.exe
-
-import piptree
-import sys
-requirementsfile = sys.argv[1]
-piptree.show(requirementsfile)
