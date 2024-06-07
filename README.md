@@ -1,5 +1,7 @@
 # 基于深度学习的星系分类Web应用
+
 功能描述：
+
 # frontend
 
 npm create vue@latest  
@@ -30,3 +32,11 @@ python39 main.py
 
 
 ## test_data中是用于测试的数据
+
+### 运行MongoDB中的.py文件将数据保存到MongoDB Astronomy数据库GalaxyCategory集合中
+
+
+
+
+
+
