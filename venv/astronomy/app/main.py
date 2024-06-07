@@ -4,8 +4,10 @@ from fastapi import FastAPI, UploadFile, File, status, Depends, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 import pandas as pd
-from typing import List
+from typing import List, Dict
 import io
+import asyncio
+from motor.motor_asyncio import AsyncIOMotorClient
 import base64
 import zipfile
 import tempfile
@@ -15,7 +17,7 @@ from pathlib import Path
 from search_tool import hips_fits_url,save_fits,parse_survey,query_information,hips_fits_url_catalog
 from astropy.table import Table
 # from app.models import PredictOut
-from models import PredictOut, disciptions, represents, Coordinate
+from models import PredictOut, Coordinate
 from utils import genID
 from galaxy_classify import galaxy_classify_zoobot
 
@@ -23,10 +25,16 @@ from zoobot.pytorch.training.finetune import FinetuneableZoobotClassifier
 
 # save img to local
 model = None
+collection = None
 model_path = Path(__file__).resolve().parents[1] / 'model/zoobot/finetune_model/FinetuneableZoobotClassifier.ckpt'
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # connect to mongodb
+    client = AsyncIOMotorClient('mongodb://localhost:27017')
+    db = client["Astronomy"]
+    global collection
+    collection = db["GalaxyCategory"]
     # Load the ML model
     global model
     model = FinetuneableZoobotClassifier.load_from_checkpoint(model_path, map_location='cpu')
@@ -48,6 +56,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+async def fetch_data_by_category(category: str, fields: List[str])->Dict[str,str]:
+    cursor_future = collection.find({"category": category}).to_list(length=None)
+    cursor = await cursor_future
+    if cursor:
+        document = cursor[0]
+        return dict(zip(fields, [document[field] for field in fields]))
+    return {}
 
 async def initial_path()->List[Path]:
     # create the file to save img
@@ -128,10 +143,12 @@ async def get_coordinate(*, coordinate:Coordinate, path:List[Path] = Depends(ini
     response_content = {}
     response_content['info_table'] = info_table
     confidence = ["{:.2%}".format(res) for res in predict_probability]
-    desc = [disciptions[res] for res in predict_res if res in disciptions]
+
+    res = await fetch_data_by_category(predict_res[0], ["description"])
+    desc = res["description"]
     response_content['category'] = predict_res[0]
     response_content['confidence'] = confidence[0]
-    response_content['description'] = desc[0]
+    response_content['description'] = desc
     return JSONResponse(content=response_content, status_code=status.HTTP_200_OK)
 
 # 接收坐标csv文件
@@ -149,7 +166,7 @@ async def get_coor_catelog(*, file:UploadFile = File(...), path:List[Path] = Dep
         # get image
         status_code = await save_fits(url_list[i],filename_list[i],img_path)
     
-    predict_res,predict_probability = galaxy_classify_zoobot(str(img_path), filename_list, id_list, model)
+    predict_res,_ = galaxy_classify_zoobot(str(img_path), filename_list, id_list, model)
     # rename all files in img_path
     rename_img(img_path, predict_res, filename_list, id_list)
 
@@ -170,7 +187,7 @@ async def get_coor_catelog(*, file:UploadFile = File(...), path:List[Path] = Dep
 @app.post('/predict', response_model=PredictOut)
 async def get_file(*, files:List[UploadFile] = File(...), path:List[Path] = Depends(initial_path), background_tasks: BackgroundTasks):
     
-    img_path,frontend = path[0], path[1]
+    img_path,_ = path[0], path[1]
     filenames:List[str] = []
     id_list:List[str] = []
 
@@ -193,17 +210,18 @@ async def get_file(*, files:List[UploadFile] = File(...), path:List[Path] = Depe
     
     if len(predict_res) == 1:
         confidence = ["{:.2%}".format(res) for res in predict_probability]
-        desc = [disciptions[res].encode("utf-8") for res in predict_res if res in disciptions]
-        represent = represents[predict_res[0]]
-        # get galaxy image with the same category
-        img_path = frontend / f"{predict_res[0]}.jpg"
-        with open(img_path, 'rb') as imfile:
-            image = base64.b64encode(imfile.read()).decode('utf-8')
-
+        res = await fetch_data_by_category(predict_res[0], ["description","name","profile","source","image"])
+        desc = res["description"]
+        represent = {
+            "name": res["name"],
+            "profile": res["profile"],
+            "source": res["source"]
+        }
+        image = res["image"]
 
         return PredictOut(category=predict_res[0],
                         confidence=confidence[0],
-                        description=desc[0],
+                        description=desc,
                         represent=represent,
                         image=image
                 )
