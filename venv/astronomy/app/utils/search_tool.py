@@ -1,19 +1,14 @@
 from astropy.io import fits
 from PIL import Image
 import numpy as np
-
 from urllib.parse import urlencode
 from astropy.io import fits
 from astropy.utils.data import download_file,clear_download_cache
 import pandas as pd
-from astroquery.simbad import Simbad
-import os
 import concurrent.futures
 import pyvo
 import asyncio
 
-# define your images dir:
-image_dir = './images/'
 
 def parse_survey(survey_id:str):
     """
@@ -107,8 +102,6 @@ async def save_fits(url,filename,img_path):
         img = data.transpose(1,2,0) # (width,height,3) 
         image = Image.fromarray(img.astype(np.uint8))
         
-        if not os.path.exists(image_dir):
-            os.mkdir(image_dir)
         image.save(img_path / filename)
 
         # delete cache (Optional):

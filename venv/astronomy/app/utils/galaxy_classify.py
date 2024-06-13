@@ -1,14 +1,10 @@
-import torch
 import os
-import sys
-import h5py
 import numpy as np
 import pandas as pd
-import zoobot
+from pathlib import Path
 from zoobot.pytorch.predictions import predict_on_catalog
-from typing import List, Tuple, Optional
-from models import dataset_labels
-
+from typing import List, Tuple
+from model.models import dataset_labels
 
 def galaxy_classify_zoobot(image_path:str, filename:List[str], id_list:List[str], model) -> Tuple[List[str], List[float]]:
     """
@@ -39,7 +35,7 @@ def galaxy_classify_zoobot(image_path:str, filename:List[str], id_list:List[str]
       model,
       n_samples = 1,
       label_cols = dataset_labels,  # name the output columns
-      save_loc = '../outputs/finetuned_predictions.csv',
+      save_loc = str(Path(__file__).resolve().parents[2] / 'outputs/finetuned_predictions.csv'),
       trainer_kwargs = {'accelerator': 'cpu'},
       datamodule_kwargs = {'num_workers': 2, 'batch_size': 32, 'greyscale': False},
     )

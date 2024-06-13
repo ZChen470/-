@@ -6,6 +6,11 @@ RUN pip install --no-cache-dir -r /app/requirements.txt -i https://pypi.tuna.tsi
 
 COPY ./astronomy /app/app
 
+ENV PYTHONPATH /app/app/app
+
+# 设置PYTHONPATH，优先使用/app/zoobot
+# ENV PYTHONPATH="/app/app/zoobot:$PYTHONPATH"
+
 WORKDIR /app/app
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]

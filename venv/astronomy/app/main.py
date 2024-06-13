@@ -6,20 +6,16 @@ from fastapi.responses import JSONResponse, FileResponse
 import pandas as pd
 from typing import List, Dict
 import io
-import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient
-import base64
 import zipfile
 import tempfile
 from contextlib import asynccontextmanager
 import gc
 from pathlib import Path
-from search_tool import hips_fits_url,save_fits,parse_survey,query_information,hips_fits_url_catalog
-from astropy.table import Table
-# from app.models import PredictOut
-from models import PredictOut, Coordinate
+from utils.search_tool import hips_fits_url,save_fits,parse_survey,query_information,hips_fits_url_catalog
+from model.models import PredictOut, Coordinate
 from utils import genID
-from galaxy_classify import galaxy_classify_zoobot
+from utils.galaxy_classify import galaxy_classify_zoobot
 
 from zoobot.pytorch.training.finetune import FinetuneableZoobotClassifier
 
@@ -242,6 +238,6 @@ async def get_file(*, files:List[UploadFile] = File(...), path:List[Path] = Depe
         return FileResponse(temp_zip.name, filename='images.zip', media_type="application/zip")
 
 
-if __name__ == "__main__":
-   import uvicorn
-   uvicorn.run("main:app", host="127.0.0.1", port=8080)
+# if __name__ == "__main__":
+#    import uvicorn
+#    uvicorn.run("main:app", host="127.0.0.1", port=8080)
