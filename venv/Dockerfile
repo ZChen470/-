@@ -8,9 +8,14 @@ COPY ./astronomy /app/app
 
 ENV PYTHONPATH /app/app/app
 
+
+# 先安装 Vim
+RUN apt-get update && \
+    apt-get install -y vim
+
 # 设置PYTHONPATH，优先使用/app/zoobot
 # ENV PYTHONPATH="/app/app/zoobot:$PYTHONPATH"
 
 WORKDIR /app/app
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
