@@ -8,31 +8,32 @@
 - 在多坐标部分，上传保存了星系坐标的csv文件，返回包含类别标注的星系图像
 
 # frontend
-
+```
 npm create vue@latest  
-npm install quasar @quasar/extras 
+npm install quasar @quasar/extras
+```
 
 ### cmd quasar_ui_test下执行
 
-npm run dev
+`npm run dev`
 
 # backend
 
-cd ./venv/Scripts  
+`cd ./venv/Scripts  `
 
 ### 激活虚拟环境
-
+```
 activate  
 cd ..  
 cd ./astronomy/app  
-
+```
 ### 安装依赖
 
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt`
 
 ### 使用python3.9的python.exe运行主程序
 
-python39 main.py
+`python39 main.py`
 
 
 
