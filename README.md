@@ -61,7 +61,7 @@ exit
 docker ps -a
 docker commit <ID/name> galaxy_back -c 'CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]'
 # 完成修改后在宿主机运行
-docker run galaxy_back -d
+docker run --network host -d galaxy_back
 ```
 
 
