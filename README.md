@@ -59,7 +59,7 @@ exit
 # 提交修改
 # 先查看刚刚run的容器的ID或name
 docker ps -a
-docker commit <ID/name> galaxy_back -c 'CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]'
+docker commit -c 'CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]' <ID> galaxy_back:<tag>
 # 完成修改后在宿主机运行
 docker run --network host -d galaxy_back
 ```
