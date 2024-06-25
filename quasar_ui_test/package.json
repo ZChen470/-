@@ -16,6 +16,7 @@
     "axios": "^1.7.2",
     "file-saver": "^2.0.5",
     "quasar": "^2.15.1",
+    "streamsaver": "^2.0.6",
     "vue": "^3.4.21",
     "vue-router": "^4.3.2"
   },

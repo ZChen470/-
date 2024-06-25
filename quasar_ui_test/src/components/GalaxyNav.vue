@@ -1,7 +1,7 @@
 <template>
     <q-drawer
         show-if-above
-        :width="180"
+        :width="160"
         :breakpoint="500"
         bordered
         elevated
@@ -75,7 +75,10 @@
 
 <style scoped>
   .container {
-    margin-top: 90px;
-    margin-left: 100px;
+    margin-top: 5vw;
+    margin-left: 5vw;
+  }
+  .container :deep(.qup) {
+    width: 22vw;
   }
 </style>

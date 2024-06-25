@@ -1,5 +1,5 @@
 <template>
-      <div class="welcom text-h1 text-weight-bolder">{{ text }}</div>
+      <div class="welcome text-h1 text-weight-bolder">{{ text }}</div>
 </template>
   
 <script setup name="AppHome">
@@ -9,7 +9,7 @@
 </script>
 
 <style>
-  .welcom {
+  .welcome {
     width: 100%;
     height: 300px;
     background-color: #b30000;

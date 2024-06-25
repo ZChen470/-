@@ -8,7 +8,7 @@
         multiple
         max-file-size="10485760"
         max-files="1"
-        accept=".jpg, .png"
+        accept=".jpg, .jpeg, .png"
         @rejected="onRejected"
         bordered
         color="cyan-8"
@@ -68,8 +68,8 @@
 
 <style scoped>
     .single-picture{
-        width: 380px;
-        height: 380px;
+        width: 25vw;
+        height: 22vw;
         display: flex;
         justify-content: center;
         align-items: center;

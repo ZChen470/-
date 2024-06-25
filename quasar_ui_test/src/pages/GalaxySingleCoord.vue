@@ -1,19 +1,19 @@
 <template>
     <div class="q-pa-md column single-coord">
   
-      <div id="aladin-lite-div" style="width:450px;height:450px;margin-bottom: 10px;"></div>
-      <div>
-          <q-btn 
-        color="cyan-8"
-        label="获取类别"
-        :loading="submitting"
-        @click="onSubmit"
-        style="width:120px">
-        <template v-slot:loading>
-            <q-spinner-facebook />
-        </template>
-      </q-btn>
-      </div>
+      <div id="aladin-lite-div" class="aladin"></div>
+        <div>
+            <q-btn 
+              color="cyan-8"
+              label="获取类别"
+              :loading="submitting"
+              @click="onSubmit"
+              style="width:8vw;height:2.2vw">
+              <template v-slot:loading>
+                  <q-spinner-facebook />
+              </template>
+            </q-btn>
+        </div>
     </div>
 </template>
   
@@ -87,13 +87,18 @@
 
 <style scoped>
     .single-coord {
-        width: 520px;
-        height: 530px;
+        width: 30vw;
+        min-height: 33vw;
         display: flex;
         justify-content: center;
         align-items: center;
         backdrop-filter: blur(10px) brightness(90%);
         background-color: rgba(255, 255, 255, 0.37);
         border-radius: 10px
+    }
+    #aladin-lite-div {
+        width:27vw;
+        height:27vw;
+        margin-bottom: 0.8vw;
     }
 </style>

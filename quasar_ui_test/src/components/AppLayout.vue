@@ -10,7 +10,7 @@
             <q-avatar>
               <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
             </q-avatar>
-            就叫这个名字罢
+            Hoshino Ai
           </q-toolbar-title>
           <q-btn flat round dense :icon="theme" @click="toggleTheme" />
           

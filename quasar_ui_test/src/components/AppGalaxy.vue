@@ -6,7 +6,7 @@
         <!-- :headers="()=>[{name:'Accept',value:'application/json'}]" -->
             <!-- :field-name="() => 'file'" -->
         <!-- 您还可以通过 headers 和 method 属性设置 HTTP 请求头和 HTTP 请求方式，请查看 API 部分。 -->
-    <div class="row items-start shadow-4 q-pa-md q-gutter-md content-box">
+    <div class="row items-start shadow-4 q-pa-sm q-gutter-md content-box">
         <q-card class="my-card" flat bordered>
 
             <q-card-section>
@@ -49,9 +49,9 @@
                 :filter="filter"
                 :rows-per-page-options="[2]"
                 card-container-class="q-ml-sm"
-                :card-container-style="{ width: '660px' }"
+                :card-container-style="{ 'width': '40vw' }"
                 card-class="bg-cyan-8 text-white text-weight-bold"
-                :card-style="{ width: '160px' }"
+                :card-style="{ width: '10vw' }"
                 hide-header
             >
             </q-table>
@@ -77,9 +77,9 @@
     let name = ref("")
     let imageBase64 = ref("")
     let info_table = ref([])
-    const uploadImageUrl = 'http://127.0.0.1:8080/predict'
-    const uploadCoordUrl = 'http://127.0.0.1:8080/coord_csv'
-    const coordUrl = 'http://127.0.0.1:8080/coord'
+    const uploadImageUrl = 'http://59.110.67.30:8080/predict'
+    const uploadCoordUrl = 'http://59.110.67.30:8080/coord_csv'
+    const coordUrl = 'http://59.110.67.30:8080/coord'
     const copy = () => {
         let text = `${category.value}\n${conf.value}\n${desc.value}`
         navigator.clipboard.writeText(text)
@@ -176,16 +176,19 @@
     }
     .content-box {
         position: absolute;
-        right: 70px;
-        top: 10px;
+        left: 40vw;
+        top: 0px;
         width: fit-content;
         backdrop-filter: blur(10px) brightness(90%);
         background-color: rgba(255, 255, 255, 0.37);
         border-radius: 10px
     }
     .my-card{
-        width: 350px;
-        min-height: 480px;
+        width: 22vw;
+        min-height: 32vw;
+    }
+    q-uploader {
+        width: 1vw;
     }
 </style>
   
